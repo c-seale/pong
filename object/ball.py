@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 
 import pygame
 
@@ -21,14 +22,10 @@ class Ball(MovableObject):
     def radius(self) -> int:
         return self._radius
 
-    @radius.setter
-    def radius(self, val: int):
-        self._radius = val
-
     def draw(self):
         self.rect = pygame.draw.circle(self.surface, self.color, (self.x, self.y), self.radius)
 
-    def update(self, collision_objects: List = None):
+    def update(self, collision_objects: Optional[List] = None):
         collided_object = None
         if collision_objects:
             for obj in collision_objects:  # If the ball hits anything, flip the ball's direction
@@ -44,11 +41,16 @@ class Ball(MovableObject):
                         else:
                             raise NotImplementedError
                     elif type(obj) == Paddle:
+                        # TODO: Figure out how to make ball behavior make a bit more sense when bouncing off the paddle
+                        #       Try to impart some amount of the paddle speed to the ball's motion in the x and y
+                        #       directions
                         self.dx = -self.dx
                         self.dy = -self.dy + obj.dy
                     else:
                         raise NotImplementedError
                     collided_object = obj
                     break
+
         super().update()
+
         return collided_object

@@ -5,19 +5,15 @@ import pygame
 
 class ObjectBase:
     def __init__(self, surface: pygame.Surface, x: int, y: int, color: pygame.Color):
-        self.surface = surface
-        self.x = x
-        self.y = y
-        self.color = color
-        self.rect = None
+        self._surface = surface
+        self._x = x
+        self._y = y
+        self._color = color
+        self._rect = None
 
     @property
     def surface(self) -> pygame.Surface:
         return self._surface
-
-    @surface.setter
-    def surface(self, val: pygame.Surface):
-        self._surface = val
 
     @property
     def x(self) -> int:
@@ -46,10 +42,6 @@ class ObjectBase:
     @property
     def color(self) -> pygame.Color:
         return self._color
-
-    @color.setter
-    def color(self, val: pygame.Color):
-        self._color = val
 
     def draw(self):
         raise NotImplementedError

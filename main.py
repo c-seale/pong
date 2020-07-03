@@ -9,17 +9,21 @@ from play_arena import PlayArena
 def main():
     # CONFIG
     SCREEN_WIDTH = 1024
-    SCREEN_HEIGHT = 768
-    SCREEN_COLOR_BACKGROUND = pygame.Color('WHITE')
-    SCREEN_BORDER_WIDTH = 20
-    SCREEN_BORDER_COLOR = pygame.Color('BLACK')
-    BALL_RADIUS = 10
+    SCREEN_HEIGHT = 768*2
+    SCREEN_BACKGROUND_COLOR = pygame.Color('WHITE')
+
+    WALL_SIZE = round(SCREEN_HEIGHT * 0.013)
+    WALL_COLOR = pygame.Color('BLACK')
+
+    BALL_RADIUS =round(WALL_SIZE * 1.5)
     BALL_COLOR = pygame.Color('RED')
-    BALL_SPEED = 3
-    PADDLE_WIDTH = 10
-    PADDLE_HEIGHT = 200
+    BALL_SPEED = round(SCREEN_WIDTH * 0.0029)
+
+    PADDLE_WIDTH = WALL_SIZE * 2
+    PADDLE_HEIGHT = round(SCREEN_HEIGHT * 0.15)
     PADDLE_COLOR = pygame.Color('BLUE')
-    PADDLE_SPEED = 5
+    PADDLE_SPEED = round(SCREEN_HEIGHT * 0.0065)
+
     FPS_LIMIT = 120
 
     # os.environ['SDL_VIDEO_CENTERED'] = '1'  # App opens centered on screen
@@ -30,7 +34,7 @@ def main():
     game_clock = pygame.time.Clock()
 
     # Initialize starting objects
-    arena = PlayArena(primary_surface, SCREEN_COLOR_BACKGROUND, SCREEN_BORDER_WIDTH, SCREEN_BORDER_COLOR)
+    arena = PlayArena(primary_surface, SCREEN_BACKGROUND_COLOR, WALL_SIZE, WALL_COLOR)
     active_ball = reset_ball(primary_surface, BALL_RADIUS, BALL_SPEED, BALL_COLOR)
     player_one_paddle = reset_player_one(primary_surface, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_COLOR)
     player_two_paddle = reset_player_two(primary_surface, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_COLOR)
@@ -40,16 +44,15 @@ def main():
 
     running = True
     while running:
-        scored = False
+        # Get active input
+        pressed_keys = pygame.key.get_pressed()
 
         # Handle events
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_F4 and (
+                    pressed_keys[pygame.K_LALT] or pressed_keys[pygame.K_RALT])):
                 running = False
                 break
-
-        # Handle input
-        pressed_keys = pygame.key.get_pressed()
 
         # process player 1 input
         player_one_paddle.dy = 0
@@ -71,22 +74,21 @@ def main():
         player_two_paddle.update(arena.walls)
         collided_obj = active_ball.update([player_one_paddle, player_two_paddle] + arena.walls + arena.goals)
         if type(collided_obj) == Goal:  # detect scoring
-            scored = True
             if collided_obj.name == 'right':
                 player_one_score += 1
+                ball_speed = abs(BALL_SPEED)
             elif collided_obj.name == 'left':
                 player_two_score += 1
+                ball_speed = -abs(BALL_SPEED)
             else:
                 return NotImplementedError
 
-        pygame.display.flip()  # refresh display
-
-        if scored:  # reset players and ball
             pygame.time.delay(500)
-            active_ball = reset_ball(primary_surface, BALL_RADIUS, BALL_SPEED, BALL_COLOR)
+            active_ball = reset_ball(primary_surface, BALL_RADIUS, ball_speed, BALL_COLOR)
             player_one_paddle = reset_player_one(primary_surface, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_COLOR)
             player_two_paddle = reset_player_two(primary_surface, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_COLOR)
 
+        pygame.display.flip()
         game_clock.tick(FPS_LIMIT)
 
     pygame.quit()

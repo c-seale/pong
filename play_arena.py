@@ -18,8 +18,6 @@ class PlayArena:
         self._wall_top = Wall('top', self.surface, 0, 0, self.surface.get_width(), self.wall_size * 3, self.wall_color)
         self._wall_bottom = Wall('bottom', self.surface, 0, self.surface.get_height() - self.wall_size,
                                  self.surface.get_width(), self.wall_size, self.wall_color)
-        self._wall_right = Wall('right', self.surface, self.surface.get_width() - self.wall_size, 0, self.wall_size,
-                                self.surface.get_height(), self.wall_color)  # TODO Make this a goal
 
         # goals
         self._goal_left = Goal('left', self.surface, 0, 0, 0, self.surface.get_height(), self.background_color)
@@ -49,10 +47,6 @@ class PlayArena:
     @property
     def wall_top(self) -> Wall:
         return self._wall_top
-
-    @property
-    def wall_right(self) -> Wall:
-        return self._wall_right
 
     @property
     def wall_bottom(self) -> Wall:
@@ -90,7 +84,7 @@ class PlayArena:
 
     def render_divider(self):
         pygame.draw.line(self.surface, pygame.Color('gray'), (self.surface.get_width() / 2, 0),
-                         (self.surface.get_width() / 2, self.surface.get_height()), 3)
+                         (self.surface.get_width() / 2, self.surface.get_height()), round(self.wall_size * 0.3))
 
     def update(self, player_one_score: int, player_two_score: int):
         self.render_background()
