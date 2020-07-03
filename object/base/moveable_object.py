@@ -1,5 +1,3 @@
-from typing import List
-
 import pygame
 
 from object.base.object import ObjectBase

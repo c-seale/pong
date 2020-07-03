@@ -1,8 +1,9 @@
+from typing import List, Optional
+
 import pygame
 
 from object.base.moveable_object import MovableObject
 from object.wall import Wall
-from typing import List, Optional
 
 
 class Paddle(MovableObject):
