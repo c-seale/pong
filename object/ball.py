@@ -33,7 +33,7 @@ class Ball(MovableObject):
                 check_rect = obj.rect
                 if self.rect and check_rect and self.rect.colliderect(check_rect):
                     if type(obj) == Goal:
-                        pass
+                        sound_effect = sound_effect = pygame.mixer.Sound(r'sound\ball-goal.wav')
                     elif type(obj) == Wall:
                         if obj.name == 'right' or obj.name == 'left':
                             self.dx = -self.dx

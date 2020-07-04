@@ -30,20 +30,28 @@ def main():
 
     os.environ['SDL_VIDEO_CENTERED'] = '1'  # App opens centered on screen
 
+    # Init pygame
     pygame.mixer.pre_init(44100, -16, 1, 512)
     pygame.init()
+
+    # Init game window
     primary_surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('cseale\'s Pong!')
     game_clock = pygame.time.Clock()
 
-    # Initialize starting objects
+    # Init starting objects
     arena = Arena(primary_surface, SCREEN_BACKGROUND_COLOR, WALL_SIZE, WALL_COLOR)
     active_ball = reset_ball(primary_surface, BALL_RADIUS, BALL_SPEED, BALL_COLOR)
     player_one_paddle = reset_player_one(primary_surface, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_COLOR)
     player_two_paddle = reset_player_two(primary_surface, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_COLOR)
 
+    # Init scores
     player_one_score = 0
     player_two_score = 0
+
+    # Init music
+    pygame.mixer.music.load(r'sound\bgm-1.mp3')
+    pygame.mixer.music.play(-1)
 
     running = True
     while running:
