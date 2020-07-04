@@ -9,7 +9,7 @@ from play_arena import PlayArena
 def main():
     # CONFIG
     SCREEN_WIDTH = 1024
-    SCREEN_HEIGHT = 768*2
+    SCREEN_HEIGHT = 768
     SCREEN_BACKGROUND_COLOR = pygame.Color('WHITE')
 
     WALL_SIZE = round(SCREEN_HEIGHT * 0.013)
