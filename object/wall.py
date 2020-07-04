@@ -9,7 +9,7 @@ class Wall(ObjectBase):
         super().__init__(screen, top_left_x, top_left_y, color)
         self._width = width
         self._height = height
-        self._name = name
+        self._name = name.lower()
 
     @property
     def width(self) -> int:
@@ -21,7 +21,7 @@ class Wall(ObjectBase):
 
     @property
     def name(self) -> str:
-        return self._name.lower()
+        return self._name
 
     def draw(self):
         self.rect = pygame.draw.rect(self.surface, self.color, pygame.Rect((self.x, self.y), (self.width, self.height)))

@@ -1,3 +1,5 @@
+import os
+
 import pygame
 
 from object.ball import Ball
@@ -15,7 +17,7 @@ def main():
     WALL_SIZE = round(SCREEN_HEIGHT * 0.013)
     WALL_COLOR = pygame.Color('BLACK')
 
-    BALL_RADIUS =round(WALL_SIZE * 1.5)
+    BALL_RADIUS = round(WALL_SIZE * 1.5)
     BALL_COLOR = pygame.Color('RED')
     BALL_SPEED = round(SCREEN_WIDTH * 0.0029)
 
@@ -26,8 +28,9 @@ def main():
 
     FPS_LIMIT = 120
 
-    # os.environ['SDL_VIDEO_CENTERED'] = '1'  # App opens centered on screen
+    os.environ['SDL_VIDEO_CENTERED'] = '1'  # App opens centered on screen
 
+    pygame.mixer.pre_init(44100, -16, 1, 512)
     pygame.init()
     primary_surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('cseale\'s Pong!')
@@ -95,13 +98,13 @@ def main():
 
 
 def reset_player_one(surface, paddle_width, paddle_height, paddle_color):
-    return Paddle(surface, paddle_width, surface.get_height() // 2 - paddle_height // 2, 0, paddle_width, paddle_height,
-                  paddle_color)
+    return Paddle('p1', surface, paddle_width, surface.get_height() // 2 - paddle_height // 2, 0, paddle_width,
+                  paddle_height, paddle_color)
 
 
 def reset_player_two(surface, paddle_width, paddle_height, paddle_color):
-    return Paddle(surface, surface.get_width() - 2 * paddle_width, surface.get_height() // 2 - paddle_height // 2, 0,
-                  paddle_width, paddle_height, paddle_color)
+    return Paddle('p2', surface, surface.get_width() - 2 * paddle_width, surface.get_height() // 2 - paddle_height // 2,
+                  0, paddle_width, paddle_height, paddle_color)
 
 
 def reset_ball(surface, ball_radius, ball_seed, ball_color):
