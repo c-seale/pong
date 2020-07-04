@@ -19,7 +19,7 @@ def main():
     BALL_COLOR = pygame.Color('RED')
     BALL_SPEED = round(SCREEN_WIDTH * 0.0029)
 
-    PADDLE_WIDTH = WALL_SIZE * 2
+    PADDLE_WIDTH = round(WALL_SIZE * 1.5)
     PADDLE_HEIGHT = round(SCREEN_HEIGHT * 0.15)
     PADDLE_COLOR = pygame.Color('BLUE')
     PADDLE_SPEED = round(SCREEN_HEIGHT * 0.0065)

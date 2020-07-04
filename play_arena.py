@@ -15,7 +15,7 @@ class PlayArena:
         self._wall_color = wall_color
 
         # walls
-        self._wall_top = Wall('top', self.surface, 0, 0, self.surface.get_width(), self.wall_size * 3, self.wall_color)
+        self._wall_top = Wall('top', self.surface, 0, 0, self.surface.get_width(), self.wall_size * 4, self.wall_color)
         self._wall_bottom = Wall('bottom', self.surface, 0, self.surface.get_height() - self.wall_size,
                                  self.surface.get_width(), self.wall_size, self.wall_color)
 
