@@ -6,7 +6,7 @@ from object.goal import Goal
 from object.wall import Wall
 
 
-class PlayArena:
+class Arena:
     def __init__(self, surface: pygame.Surface, background_color: pygame.Color, wall_size: int,
                  wall_color: pygame.Color):
         self._surface = surface

@@ -2,10 +2,10 @@ import os
 
 import pygame
 
+from object.arena import Arena
 from object.ball import Ball
 from object.goal import Goal
 from object.paddle import Paddle
-from play_arena import PlayArena
 
 
 def main():
@@ -37,7 +37,7 @@ def main():
     game_clock = pygame.time.Clock()
 
     # Initialize starting objects
-    arena = PlayArena(primary_surface, SCREEN_BACKGROUND_COLOR, WALL_SIZE, WALL_COLOR)
+    arena = Arena(primary_surface, SCREEN_BACKGROUND_COLOR, WALL_SIZE, WALL_COLOR)
     active_ball = reset_ball(primary_surface, BALL_RADIUS, BALL_SPEED, BALL_COLOR)
     player_one_paddle = reset_player_one(primary_surface, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_COLOR)
     player_two_paddle = reset_player_two(primary_surface, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_COLOR)
