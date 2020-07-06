@@ -1,2 +1,2 @@
 # pong
-This is a basic project reimplementing pong to learn basic pygame functinality.
+This is a basic project implementing long to learn basic pygame functionality.
